@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Carte des boîtes à livres</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .popup-content img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 10px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // Carte centrée sur Marseille
+    var map = L.map('map').setView([43.2995, 5.37], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // 📍 BOÎTES À LIVRES
+    var boites = [
+        {
+            nom: "Boîte à livres 1",
+            lat: 43.307275,
+            lng: 5.376356,
+            image: "photo1.jpg",
+            description: "Boîte à livres 1"
+        },
+        {
+            nom: "Boîte à livres 2",
+            lat: 43.299939,
+            lng: 5.368217,
+            image: "photo2.jpg",
+            description: "Boîte à livres 2"
+        },
+        {
+            nom: "Boîte à livres 3",
+            lat: 43.297714,
+            lng: 5.367672,
+            image: "photo3.jpg",
+            description: "Boîte à livres 3"
+        },
+        {
+            nom: "Boîte à livres 4",
+            lat: 43.300567,
+            lng: 5.378444,
+            image: "photo4.jpg",
+            description: "Boîte à livres 4"
+        },
+        {
+            nom: "Boîte à livres 5",
+            lat: 43.300267,
+            lng: 5.378558,
+            image: "photo5.jpg",
+            description: "Boîte à livres 5"
+        },
+        {
+            nom: "Boîte à livres 6",
+            lat: 43.293525,
+            lng: 5.386914,
+            image: "photo6.jpg",
+            description: "Boîte à livres 6"
+        },
+        {
+            nom: "Boîte à livres 7",
+            lat: 43.291314,
+            lng: 5.384592,
+            image: "photo7.jpg",
+            description: "Boîte à livres 7"
+        },
+        {
+            nom: "Boîte à livres 8",
+            lat: 43.283931,
+            lng: 5.357019,
+            image: "photo8.jpg",
+            description: "Boîte à livres 8"
+        },
+        {
+            nom: "Boîte à livres 9",
+            lat: 43.284294,
+            lng: 5.357742,
+            image: "photo9.jpg",
+            description: "Boîte à livres 9"
+        },
+        {
+            nom: "Boîte à livres 10",
+            lat: 43.285764,
+            lng: 5.351067,
+            image: "photo10.jpg",
+            description: "Boîte à livres 10"
+        }
+    ];
+
+    // Ajout des marqueurs
+    boites.forEach(function(boite) {
+
+        var lienGPS = "https://www.google.com/maps/dir/?api=1&destination="
+                      + boite.lat + "," + boite.lng;
+
+        var marker = L.marker([boite.lat, boite.lng]).addTo(map);
+
+        marker.bindPopup(
+            '<div class="popup-content">' +
+                '<h3>' + boite.nom + '</h3>' +
+                '<img src="' + boite.image + '">' +
+                '<p>' + boite.description + '</p>' +
+                '<a class="btn" href="' + lienGPS + '" target="_blank">📍 Y aller (Google Maps)</a>' +
+                '<br><small>' + boite.lat + ', ' + boite.lng + '</small>' +
+            '</div>'
+        );
+    });
+</script>
+
+</body>
+</html>
